@@ -55,9 +55,16 @@ module Charts
 
   class BuildTime < Chart
     def collect
-      30.times do |i|
+      i=0
+      #TODO: This is currently only supported with MySQL
+      # for Postgres use this SQL
+      # sql = "date_part('epoch',finished_at) - date_part('epoch',started_at) as duration""
+      sql = "UNIX_TIMESTAMP(finished_at) - UNIX_TIMESTAMP(started_at) as duration"
+      result = project.builds.order(:finished_at).limit(30).pluck(sql)
+      result.each do |b|
         @labels << i
-        @build << project.builds.select('DATEDIFF(second, started_at, finished_at) as duration').all
+        @build_times << b || 0
+        i += 1
       end
     end
   end
