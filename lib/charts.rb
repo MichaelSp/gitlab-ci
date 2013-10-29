@@ -56,10 +56,11 @@ module Charts
   class BuildTime < Chart
     def collect
       i=0
-      #TODO: This is currently only supported with MySQL
-      # for Postgres use this SQL
-      # sql = "date_part('epoch',finished_at) - date_part('epoch',started_at) as duration""
-      sql = "UNIX_TIMESTAMP(finished_at) - UNIX_TIMESTAMP(started_at) as duration"
+      if ActiveRecord::Base.connection.adapter_name.downcase == "postgresql"
+         sql = "date_part('epoch',finished_at) - date_part('epoch',started_at) as duration"
+      else
+        sql = 'UNIX_TIMESTAMP(finished_at) - UNIX_TIMESTAMP(started_at) as duration'
+      end
       result = project.builds.order(:finished_at).limit(30).pluck(sql)
       result.each do |b|
         @labels << i
