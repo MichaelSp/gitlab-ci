@@ -11,18 +11,6 @@ module ProjectsHelper
     end
   end
 
-  def build_status_alert_class build
-    if build.success?
-      'alert-success'
-    elsif build.deployed?
-      'alert-info'
-    elsif build.failed? || build.canceled?
-      'alert-error'
-    else
-      ''
-    end
-  end
-
   def ref_tab_class ref = nil
     'active' if ref == @ref
   end

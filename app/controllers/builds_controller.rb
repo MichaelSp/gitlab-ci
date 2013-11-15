@@ -51,7 +51,7 @@ class BuildsController < ApplicationController
   def status
     @build = builds.limit(1).first
 
-    render json: @build.to_json(only: [:status, :id, :sha])
+    render json: @build.to_json(only: [:status, :id, :sha, :action])
   end
 
   def cancel

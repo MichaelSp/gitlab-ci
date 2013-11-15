@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 GitlabCi::Application.routes.draw do
+
+  resources :test_reports
+
+
   # API
   API::API.logger Rails.logger
   mount API::API => '/api'
@@ -28,6 +32,9 @@ GitlabCi::Application.routes.draw do
         post :retry
         post :deploy
       end
+
+      resources :coverages, only: [:show, :index]
+      resources :report_files, only: [:show, :index]
     end
   end
 
