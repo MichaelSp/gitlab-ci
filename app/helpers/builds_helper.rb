@@ -73,7 +73,7 @@ module BuildsHelper
     case test.status
       when 'failed' then 'alert-error'
       when 'success' then 'alert-success'
-      when 'pending' || 'skipped' then 'alert-warning'
+      when 'pending' || 'skipped' then 'alert'
       else ''
     end
   end
