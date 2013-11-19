@@ -79,9 +79,13 @@ pre.trace {
       background: #EEEEEE;
     }
   }
-  .accordion-inner pre > a.btn {
-    @extend .pull-right;
-    margin-right: -10px;
+  .accordion-inner {
+    text-shadow: none;
+
+    pre > a.btn {
+      @extend .pull-right;
+      margin-right: -10px;
+    }
   }
   .accordion-heading {
     padding: 0px 5px;
